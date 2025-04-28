@@ -10,11 +10,11 @@
     <a href="/memos/<%= @memo_details["id"] %>/edit">変更</a>
   </div>
   <div>
-    <form action="/memos/<%= @memo_details["id"]%>" method="post">
-	    <div>
-  	    <input type="hidden" name="_method" value="delete">
-		      <input type="submit" value="削除">
-	    </div>
+    <form action="/memos/<%= @memo_details["id"] %>" method="post">
+      <div>
+        <input type="hidden" name="_method" value="delete">
+          <input type="submit" value="削除">
+      </div>
     </form>
   </div>
 </div>

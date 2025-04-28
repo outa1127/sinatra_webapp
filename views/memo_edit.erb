@@ -1,16 +1,16 @@
 <h1>メモアプリ</h1>
 
-<form action="/memos/<%= @memo_details["id"]%>" method="post">
-	<div>
-  	<input type="hidden" name="_method" value="patch">
+<form action="/memos/<%= @memo_details["id"] %>" method="post">
+  <div>
+    <input type="hidden" name="_method" value="patch">
       <div>
         <input type="text" id="title" name="title" value="<%= @memo_details["title"] %>">
       </div>
       <div>
         <textarea id="content" name="content"><%= @memo_details["content"] %></textarea>
-	    </div>
+      </div>
       <div>
-		    <input type="submit" value="変更">
-	    </div>
+        <input type="submit" value="変更">
+      </div>
   </div>
 </form>
