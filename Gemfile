@@ -8,4 +8,5 @@ gem "rackup"
 gem "puma"
 gem "webrick"
 gem "sinatra-contrib"
-gem 'htmlbeautifier'
+gem "htmlbeautifier"
+gem "sanitize"

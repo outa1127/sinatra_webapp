@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'sinatra/reloader'
 require 'json'
+require 'sanitize'
 
 JSON_FILE_PATH = 'data/memos.json'
 
@@ -18,36 +19,32 @@ end
 
 get '/' do
   @memos = load_memos
-  # p @memos
   @title = "TOP"
   erb :index
 end
 
 get '/memos/new' do
+  @title = "NEW"
   erb :new
 end
 
 post '/memos' do
-  # 新規メモを作成するロジックを書く
   memos = load_memos
   new_memo = {
     "id" => memos.size + 1,
-    "title" => params[:title],
-    "content" => params[:content]
+    "title" => Sanitize.fragment(params[:title]),
+    "content" => Sanitize.fragment(params[:content])
   }
   memos << new_memo
   save_memos(memos)
   redirect '/'
 end
 
-put '/memos/:id' do |id|
-  # メモの内容を修正するロジックを書く
+patch '/memos/:id' do |id|
   memos = load_memos
-  # update_memoには{"id" => 1, "title" => "メモ1", "content" => "メモの内容1"}などが入る
   update_memo = memos.find {|memo| memo["id"] == id.to_i}
-  p params[:title]
-  update_memo["title"] = params[:title]
-  update_memo["content"] = params[:content]
+  update_memo["title"] = Sanitize.fragment(params[:title]),
+  update_memo["content"] = Sanitize.fragment(params[:content])
   save_memos(memos)
   redirect '/'
 end
@@ -60,15 +57,15 @@ delete '/memos/:id' do |id|
 end
 
 get '/memos/:id' do |n|
+  @title = "DETAILS"
   memos = load_memos
   @memo_details = memos.find {|memo| memo["id"] == params[:id].to_i}
-  # p @memo_details
   erb :memo_details
 end
 
 get '/memos/:id/edit' do |n|
+  @title = "EDIT"
   memos = load_memos
   @memo_details = memos.find {|memo| memo["id"] == params[:id].to_i}
-  p @memo_details
   erb :memo_edit
 end

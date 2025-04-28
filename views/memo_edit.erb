@@ -2,7 +2,7 @@
 
 <form action="/memos/<%= @memo_details["id"]%>" method="post">
 	<div>
-  	<input type="hidden" name="_method" value="PUT">
+  	<input type="hidden" name="_method" value="patch">
       <div>
         <input type="text" id="title" name="title" value="<%= @memo_details["title"] %>">
       </div>
