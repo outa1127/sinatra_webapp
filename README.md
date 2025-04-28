@@ -8,6 +8,12 @@
 git clone https://github.com/outa1127/sinatra_webapp.git
 ```
 
+### ディレクトリの移動
+
+```
+cd sinatra_webapp
+```
+
 ### STEP2 必要な gem をインストールする
 
 ```
