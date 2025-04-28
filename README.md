@@ -5,7 +5,7 @@
 ### STEP1 クローンする
 
 ```
-https://github.com/outa1127/sinatra_webapp.git
+git clone https://github.com/outa1127/sinatra_webapp.git
 ```
 
 ### STEP2 必要な gem をインストールする
