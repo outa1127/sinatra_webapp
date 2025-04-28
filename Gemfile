@@ -1,12 +1,17 @@
 # frozen_string_literal: true
 
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
-# gem "rails"
-gem "sinatra"
-gem "rackup"
-gem "puma"
-gem "webrick"
-gem "sinatra-contrib"
-gem "htmlbeautifier"
-gem "sanitize"
+# gem 'rails'
+gem 'erb_lint', require: false
+gem 'htmlbeautifier'
+gem 'puma'
+gem 'rackup'
+gem 'sanitize'
+gem 'sinatra'
+gem 'sinatra-contrib'
+gem 'webrick'
+
+group :development do
+  gem 'rubocop-fjord', require: false
+end
