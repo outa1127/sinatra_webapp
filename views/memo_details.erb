@@ -1,0 +1,20 @@
+<h1>メモアプリ</h1>
+<div>
+  <div>
+    <%= @memo_details["title"] %>
+  </div>
+  <div>
+    <%= @memo_details["content"] %>
+  </div>
+  <div>
+    <a href="/memos/<%= @memo_details["id"] %>/edit">変更</a>
+  </div>
+  <div>
+    <form action="/memos/<%= @memo_details["id"] %>" method="post">
+      <div>
+        <input type="hidden" name="_method" value="delete">
+          <input type="submit" value="削除">
+      </div>
+    </form>
+  </div>
+</div>
