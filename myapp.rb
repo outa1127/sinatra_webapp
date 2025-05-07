@@ -47,9 +47,9 @@ post '/memos' do
   redirect '/'
 end
 
-patch '/memos/:id' do
+patch '/memos/:id' do |id|
   memos = load_memos
-  update_memo = find_memo(memos)
+  update_memo = find_memo(memos, id)
   update_memo[:title] = params[:title]
   update_memo[:memo] = params[:content]
   save_memos(memos)
@@ -67,13 +67,13 @@ get '/memos/:id' do |id|
   @title = 'DETAILS'
   memos = load_memos
   puts memos
-  @memo_details = find_memo(memos, id)
+  @memo = find_memo(memos, id)
   erb :memo_details
 end
 
 get '/memos/:id/edit' do |id|
   @title = 'EDIT'
   memos = load_memos
-  @memo_details = find_memo(memos, id)
+  @memo = find_memo(memos, id)
   erb :memo_edit
 end
