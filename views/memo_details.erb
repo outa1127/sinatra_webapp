@@ -1,10 +1,10 @@
 <h1>メモアプリ</h1>
 <div>
   <div>
-    <%= @memo_details[:title] %>
+    <%= ERB::Util.html_escape(@memo_details[:title]) %>
   </div>
   <div>
-    <%= @memo_details[:content] %>
+    <%= ERB::Util.html_escape(@memo_details[:content]) %>
   </div>
   <div>
     <a href="/memos/<%= @memo_details[:id] %>/edit">変更</a>

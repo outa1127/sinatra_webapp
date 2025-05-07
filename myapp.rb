@@ -8,12 +8,6 @@ require 'Rack'
 
 JSON_FILE_PATH = 'data/memos.json'
 
-helpers do
-  def h(text)
-    Rack::Utils.escape_html(text)
-  end
-end
-
 def load_memos
   if File.exist?(JSON_FILE_PATH)
     JSON.parse(File.read(JSON_FILE_PATH), symbolize_names: true)
@@ -41,8 +35,8 @@ post '/memos' do
   max_id = memos.map { |memo| memo[:id] }.max || 0
   new_memo = {
     id: max_id + 1,
-    title: h(params[:title]),
-    content: h(params[:content])
+    title: params[:title],
+    content: params[:content]
   }
   memos << new_memo
   save_memos(memos)
@@ -52,8 +46,8 @@ end
 patch '/memos/:id' do |id|
   memos = load_memos
   update_memo = memos.find { |memo| memo[:id] == id.to_i }
-  update_memo[:title] = h(params[:title])
-  update_memo[:memo] = h(params[:content])
+  update_memo[:title] = params[:title]
+  update_memo[:memo] = params[:content]
   save_memos(memos)
   redirect '/'
 end
