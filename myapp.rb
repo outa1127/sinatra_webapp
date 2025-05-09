@@ -4,7 +4,6 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'json'
 require 'sanitize'
-require 'Rack'
 
 JSON_FILE_PATH = 'data/memos.json'
 

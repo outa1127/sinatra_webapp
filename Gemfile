@@ -5,7 +5,6 @@ source 'https://rubygems.org'
 # gem 'rails'
 gem 'erb_lint', require: false
 gem 'puma'
-gem 'rackup'
 gem 'sanitize'
 gem 'sinatra'
 gem 'sinatra-contrib'
