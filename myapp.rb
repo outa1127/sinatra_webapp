@@ -4,27 +4,10 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'json'
 require 'sanitize'
-
-JSON_FILE_PATH = 'data/memos.json'
-
-def load_memos
-  if File.exist?(JSON_FILE_PATH)
-    JSON.parse(File.read(JSON_FILE_PATH), symbolize_names: true)
-  else
-    []
-  end
-end
-
-def save_memos(memos)
-  File.write(JSON_FILE_PATH, JSON.pretty_generate(memos))
-end
-
-def find_memo(memos, id)
-  memos.find { |memo| memo[:id] == id.to_i }
-end
+require_relative 'memo_postgre'
 
 get '/' do
-  @memos = load_memos
+  @memos = Memo.load_memos
   erb :index
 end
 
@@ -34,45 +17,28 @@ get '/memos/new' do
 end
 
 post '/memos' do
-  memos = load_memos
-  max_id = memos.map { |memo| memo[:id] }.max || 0
-  new_memo = {
-    id: max_id + 1,
-    title: params[:title],
-    content: params[:content]
-  }
-  memos << new_memo
-  save_memos(memos)
+  Memo.create(title: params[:title], content: params[:content])
   redirect '/'
 end
 
 patch '/memos/:id' do |id|
-  memos = load_memos
-  update_memo = find_memo(memos, id)
-  update_memo[:title] = params[:title]
-  update_memo[:memo] = params[:content]
-  save_memos(memos)
+  Memo.update(id: id, title: params[:title], content: params[:content])
   redirect '/'
 end
 
 delete '/memos/:id' do |id|
-  memos = load_memos
-  memos.reject! { |memo| memo[:id] == id.to_i }
-  save_memos(memos)
+  Memo.delete(id)
   redirect '/'
 end
 
 get '/memos/:id' do |id|
   @title = 'DETAILS'
-  memos = load_memos
-  puts memos
-  @memo = find_memo(memos, id)
+  @memo = Memo.find(id)
   erb :memo_details
 end
 
 get '/memos/:id/edit' do |id|
   @title = 'EDIT'
-  memos = load_memos
-  @memo = find_memo(memos, id)
+  @memo = Memo.find(id)
   erb :memo_edit
 end
