@@ -1,0 +1,16 @@
+<h1>メモアプリ</h1>
+
+<form action="/memos/<%= @memo[:id] %>" method="post">
+  <div>
+    <input type="hidden" name="_method" value="patch">
+      <div>
+        <input type="text" id="title" name="title" value="<%= @memo[:title] %>">
+      </div>
+      <div>
+        <textarea id="content" name="content"><%= @memo[:content] %></textarea>
+      </div>
+      <div>
+        <input type="submit" value="変更">
+      </div>
+  </div>
+</form>

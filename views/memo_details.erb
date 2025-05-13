@@ -1,0 +1,20 @@
+<h1>メモアプリ</h1>
+<div>
+  <div>
+    <%= ERB::Util.html_escape(@memo[:title]) %>
+  </div>
+  <div>
+    <%= ERB::Util.html_escape(@memo[:content]) %>
+  </div>
+  <div>
+    <a href="/memos/<%= @memo[:id] %>/edit">変更</a>
+  </div>
+  <div>
+    <form action="/memos/<%= @memo[:id] %>" method="post">
+      <div>
+        <input type="hidden" name="_method" value="delete">
+          <input type="submit" value="削除">
+      </div>
+    </form>
+  </div>
+</div>
