@@ -7,7 +7,8 @@ require 'sanitize'
 require_relative 'memo_postgre'
 
 get '/' do
-  @memos = Memo.load_memos
+  @memos = Memo.all
+  p @memos
   erb :index
 end
 
@@ -22,12 +23,14 @@ post '/memos' do
 end
 
 patch '/memos/:id' do |id|
-  Memo.update(id: id, title: params[:title], content: params[:content])
+  @memo = Memo.find(id)
+  @memo.update(title: params[:title], content: params[:content])
   redirect '/'
 end
 
 delete '/memos/:id' do |id|
-  Memo.delete(id)
+  @memo = Memo.find(id)
+  @memo.delete
   redirect '/'
 end
 

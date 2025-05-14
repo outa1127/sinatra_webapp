@@ -14,20 +14,35 @@ class Memo
   attr_reader :id
   attr_accessor :title, :content
 
+  def initialize(id:, title:, content:)
+    @id = id
+    @title = title
+    @content = content
+  end
+
   def self.load_memos
     JSON.parse(File.read(JSON_FILE_PATH), symbolize_names: true)
   end
 
   def self.all
-    load_memos.map do |memo|
-      Memo.new(id: memo[:id], title: memo[:title], content: memo[:content])
+    load_memos.map do |data|
+      new(
+        id: data[:id],
+        title: data[:title],
+        content: data[:content]
+      )
     end
   end
 
   def self.find(id)
-    load_memos.find do |memo|
-      memo[:id] == id.to_i
-    end
+    memo_data = load_memos.find { |data| data[:id] == id.to_i }
+    return nil unless memo_data
+
+    new(
+      id: memo_data[:id],
+      title: memo_data[:title],
+      content: memo_data[:content]
+    )
   end
 
   def self.create(title:, content:)
@@ -42,22 +57,21 @@ class Memo
     save_memos(memos)
   end
 
-  def self.update(id:, title:, content:)
-    memos = load_memos
-    memo = memos.find { |memo| memo[:id] == id.to_i }
+  def update(title:, content:)
+    memos = self.class.load_memos
+    memo = memos.find { |memo| memo[:id] == @id }
     memo[:title] = title
     memo[:content] = content
-    save_memos(memos)
+    self.class.save_memos(memos)
   end
 
-  def self.delete(id)
-    memos = load_memos
-    memos.reject! { |memo| memo[:id] == id.to_i }
-    save_memos(memos)
+  def delete
+    memos = self.class.load_memos
+    memos.reject! { |memo| memo[:id] == @id }
+    self.class.save_memos(memos)
   end
 
   def self.save_memos(memos)
     File.write(JSON_FILE_PATH, JSON.pretty_generate(memos))
   end
-  private_class_method :save_memos
 end
