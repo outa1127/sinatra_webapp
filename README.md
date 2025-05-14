@@ -32,7 +32,22 @@ createdb sinatra_memo_app
 CREATE TABLE memos (id serial not null, title text, content text, PRIMARY KEY(id));
 ```
 
-### STEP6 アプリケーションを起動する
+### STEP6 ENV ファイルを作成
+
+```
+touch .env
+```
+
+### STEP6 `.env`ファイルに環境変数を追加
+
+```
+DB_NAME = 'sinatra_memo_app'
+DB_USER = 'postgres'
+DB_HOST= 'localhost'
+DB_PORT = '5432'
+```
+
+### STEP7 アプリケーションを起動する
 
 ```
 bundle exec ruby myapp.rb
