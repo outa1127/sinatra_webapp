@@ -8,7 +8,6 @@ require_relative 'memo_postgre'
 
 get '/' do
   @memos = Memo.all
-  p @memos
   erb :index
 end
 
