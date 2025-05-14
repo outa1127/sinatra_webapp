@@ -4,7 +4,7 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'json'
 require 'sanitize'
-require_relative 'memo_postgre'
+require_relative 'memo'
 
 get '/' do
   @memos = Memo.all

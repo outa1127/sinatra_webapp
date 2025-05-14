@@ -8,6 +8,8 @@ class Memo
   attr_reader :id
   attr_accessor :title, :content
 
+  @connect_postgresql = nil
+
   def initialize(id:, title:, content:)
     @id = id
     @title = title
@@ -15,7 +17,12 @@ class Memo
   end
 
   def self.connect_postgresql
-    PG::Connection.new(dbname: ENV['DB_NAME'], user: ENV['DB_USER'], host: ENV['DB_HOST'], port: ENV['DB_PORT'])
+    @connect_postgresql ||= PG::Connection.new(
+      dbname: ENV['DB_NAME'],
+      user: ENV['DB_USER'],
+      host: ENV['DB_HOST'],
+      port: ENV['DB_PORT']
+    )
   end
 
   def self.all
