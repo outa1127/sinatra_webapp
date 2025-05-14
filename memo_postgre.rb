@@ -32,8 +32,6 @@ class Memo
 
   def self.find(id)
     conn = connect_postgresql
-    # [{"id" => "1   ", "title" => "test1", "content" => "test1の内容"}]みたいな形で格納されている
-    # そのため、.firstでハッシュを直接memo_dataに格納するようにしている
     memo_data = conn.exec_params('SELECT * FROM memos WHERE id = $1;', [id]).first
     return nil unless memo_data
 
