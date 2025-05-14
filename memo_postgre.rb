@@ -2,7 +2,6 @@
 
 require 'pg'
 require 'dotenv/load'
-require 'pp'
 
 # Class on memo methods.
 class Memo
