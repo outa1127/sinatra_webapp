@@ -3,6 +3,7 @@
 source 'https://rubygems.org'
 
 # gem 'rails'
+gem 'dotenv'
 gem 'erb_lint', require: false
 gem 'pg'
 gem 'puma'
