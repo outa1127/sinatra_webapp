@@ -29,11 +29,7 @@ class Memo
     conn = connect_postgresql
     all_memos = conn.exec('SELECT * FROM memos ORDER BY id ASC')
     all_memos.map do |memo|
-      new(
-        id: memo['id'],
-        title: memo['title'],
-        content: memo['content']
-      )
+      new(**memo.transform_keys(&:to_sym))
     end
   end
 
@@ -42,11 +38,7 @@ class Memo
     memo_data = conn.exec_params('SELECT * FROM memos WHERE id = $1', [id]).first
     return nil unless memo_data
 
-    new(
-      id: memo_data['id'],
-      title: memo_data['title'],
-      content: memo_data['content']
-    )
+    new(**memo_data.transform_keys(&:to_sym))
   end
 
   def self.create(title:, content:)
