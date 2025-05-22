@@ -27,7 +27,7 @@ class Memo
 
   def self.all
     conn = connect_postgresql
-    all_memos = conn.exec('SELECT * FROM memos ORDER BY id ASC;')
+    all_memos = conn.exec('SELECT * FROM memos ORDER BY id ASC')
     all_memos.map do |memo|
       new(
         id: memo['id'],
@@ -39,7 +39,7 @@ class Memo
 
   def self.find(id)
     conn = connect_postgresql
-    memo_data = conn.exec_params('SELECT * FROM memos WHERE id = $1;', [id]).first
+    memo_data = conn.exec_params('SELECT * FROM memos WHERE id = $1', [id]).first
     return nil unless memo_data
 
     new(
@@ -51,7 +51,7 @@ class Memo
 
   def self.create(title:, content:)
     conn = connect_postgresql
-    conn.exec_params('INSERT INTO memos(title, content) VALUES ($1, $2);', [title, content])
+    conn.exec_params('INSERT INTO memos(title, content) VALUES ($1, $2)', [title, content])
   end
 
   def update(title:, content:)
