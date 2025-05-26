@@ -3,8 +3,11 @@
 source 'https://rubygems.org'
 
 # gem 'rails'
+gem 'dotenv'
 gem 'erb_lint', require: false
+gem 'pg'
 gem 'puma'
+gem 'rackup'
 gem 'sanitize'
 gem 'sinatra'
 gem 'sinatra-contrib'
